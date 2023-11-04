@@ -20,7 +20,16 @@ app.get("/car", function(req, res) {
     let sort = req.query.sort;
     let minprice = req.query.minprice;
     let maxprice = req.query.maxprice;
-    console.log(minprice);
+    if (minprice) {
+        cars = cars.filter((n1) => {
+            if (n1.price >= minprice) return n1;
+        })
+    }
+    if (maxprice) {
+        cars = cars.filter((n1) => {
+            if (n1.price <= minprice) return n1;
+        })
+    }
     if (sort) {
         switch (sort) {
             case "kms":
@@ -40,7 +49,7 @@ app.get("/car", function(req, res) {
 app.get("/car/:id", function(req, res) {
     let id = req.params.id;
 
-    const data = carsData.cars.find((n1) => n1.id === id);
+    const data = carsData.carsnpm.find((n1) => n1.id === id);
     res.send(data);
 });
 app.post("/car", function(req, res) {
